@@ -18,25 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
       activeStyle(header, stickyHeaderStyle);
     }
 
-    scrollY >= listMenuOffsetTop
-      ? activeStyle(listMenu, stickyMenuStyle)
-      : activeStyle(listMenu, stickyMenuStyle, false);
+    if (listMenuOffsetTop) {
+      scrollY >= listMenuOffsetTop
+        ? activeStyle(listMenu, stickyMenuStyle)
+        : activeStyle(listMenu, stickyMenuStyle, false);
+    }
 
     // 스크롤 스파이 기능
-    menuContents.forEach((content, index) => {
-      const contentTop = content.offsetTop;
-      const contentHeight = content.offsetHeight;
 
-      if (
-        scrollY >= contentTop - 50 &&
-        scrollY < contentTop + contentHeight - 50
-      ) {
-        listItems.forEach((item) => {
-          item.style.textDecoration = 'none';
-        });
-        listItems[index].style.textDecoration = 'underline';
-      }
-    });
+    if (menuContents) {
+      menuContents.forEach((content, index) => {
+        const contentTop = content.offsetTop;
+        const contentHeight = content.offsetHeight;
+
+        if (
+          scrollY >= contentTop - 50 &&
+          scrollY < contentTop + contentHeight - 50
+        ) {
+          if (listItems) {
+            listItems.forEach((item) => {
+              item.style.textDecoration = 'none';
+            });
+            listItems[index].style.textDecoration = 'underline';
+          }
+        }
+      });
+    }
   };
 
   // 이벤트 등록
