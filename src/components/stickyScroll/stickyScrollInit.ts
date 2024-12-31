@@ -1,27 +1,62 @@
-import { listMenu, listItems, menuContents, header } from './utils/variable.js';
-import { calcElemOffsetTopValue } from './utils/calcElemOffsetTop.js';
 import {
-  activeStyle,
+  boxMenu,
+  listItems,
+  menuContents,
+  header,
+  boxInner,
+} from './utils/variable.js';
+import { calcElemOffsetTopValue } from './utils/calcElemOffsetTop.js';
+
+import {
+  applyStyleElem,
   stickyMenuStyle,
   stickyHeaderStyle,
   originalHeaderStyle,
 } from './utils/createStyleObj.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const listMenuOffsetTop = calcElemOffsetTopValue('.list_menu', 60);
+  const what = () => {
+    if (boxInner) {
+      let boxInnerOffsetHeight = boxInner.offsetHeight;
+      boxInner.style.transform = 'translate3d(0px, 0px, 0px)';
+      return boxInnerOffsetHeight;
+    }
+  };
 
-  // 스크롤 이벤트 핸들러
+  const calcTresholdTrigger = () => {
+    if (header) {
+      const boxMenuOffsetTop = calcElemOffsetTopValue('.box_menu');
+      if (boxMenuOffsetTop) {
+        const headerOffsetHeight = header?.offsetHeight;
+        let tresholdDistance = boxMenuOffsetTop - headerOffsetHeight;
+        return tresholdDistance;
+      }
+    }
+  };
+
+  const triggerPoint = calcTresholdTrigger();
+
   const handleScroll = () => {
     const scrollY = window.scrollY;
+    const whatHeight = what();
 
     if (scrollY >= 0) {
-      activeStyle(header, stickyHeaderStyle);
+      applyStyleElem(header, stickyHeaderStyle);
     }
 
-    if (listMenuOffsetTop) {
-      scrollY >= listMenuOffsetTop
-        ? activeStyle(listMenu, stickyMenuStyle)
-        : activeStyle(listMenu, stickyMenuStyle, false);
+    if (triggerPoint) {
+      if (scrollY >= triggerPoint) {
+        applyStyleElem(boxInner, stickyMenuStyle);
+        if (boxMenu) {
+          boxMenu.style.height = `${whatHeight}px`;
+        }
+      } else {
+        applyStyleElem(boxInner, stickyMenuStyle, false);
+        if (boxInner) {
+          boxInner.style.transform = 'translate3d(0px, 0px, 0px)';
+          boxInner.style.position = 'relative';
+        }
+      }
     }
 
     // 스크롤 스파이 기능
