@@ -1,21 +1,21 @@
 import {
   isObjIterable,
-  transformNormalStyleObjToIterable,
+  transformNormalObjToIterable,
 } from './createIterableObj.js';
 
-type styleObjType = {
+type cssStyleObjType = {
   [key in keyof CSSStyleDeclaration]?: string | number;
 };
 
-const originalHeaderStyle: styleObjType = {
+const originalHeaderStyle: cssStyleObjType = {
   position: 'static',
 };
 
-const stickyHeaderStyle: styleObjType = {
+const stickyHeaderStyle: cssStyleObjType = {
   position: 'fixed',
 };
 
-const stickyMenuStyle: styleObjType = {
+const stickyMenuStyle: cssStyleObjType = {
   position: 'fixed',
   top: 0,
   transform: 'translate3d(0px, 60px, 0px)',
@@ -23,37 +23,39 @@ const stickyMenuStyle: styleObjType = {
 };
 
 // 일반 객체(스타일 객체)를 이터러블 객체로 변환
-const createStyleObj = (obj: styleObjType) => {
-  if (!obj || typeof obj !== 'object') {
+const createIterableObj = (normalObj: cssStyleObjType) => {
+  if (!normalObj || typeof normalObj !== 'object') {
     return;
   }
-
-  const isIterable = isObjIterable(obj);
+  const isIterable = isObjIterable(normalObj);
 
   if (!isIterable) {
-    let styleObj = transformNormalStyleObjToIterable(obj);
-    return styleObj;
+    let styledIterableObj = transformNormalObjToIterable(normalObj);
+    return styledIterableObj;
   }
 };
 
-const activeStyle = (
-  element: HTMLElement | null,
-  styleObj: styleObjType,
+const applyStyleElem = (
+  domElem: HTMLElement | null,
+  normalStyledObj: cssStyleObjType,
   trigger = true
 ) => {
-  if (element && styleObj) {
-    const iterableStyledObj = createStyleObj(styleObj);
-    if (trigger && iterableStyledObj) {
-      for (const [key, value] of iterableStyledObj) {
-        if (typeof key === 'number' && typeof value === 'string') {
-          element.style[key] = value;
+  if (domElem && normalStyledObj) {
+    const iterableStyledObj = createIterableObj(normalStyledObj);
+
+    if (trigger) {
+      if (iterableStyledObj) {
+        for (const [key, value] of iterableStyledObj) {
+          if (typeof value === 'string') {
+            domElem.style[key as number] = value;
+          }
         }
       }
-    } else if (iterableStyledObj) {
-      for (const [key, value] of iterableStyledObj) {
-        if (iterableStyledObj) {
-          if (typeof key === 'number' && typeof value === 'string') {
-            element.style[key] = '';
+    } else {
+      if (iterableStyledObj) {
+        for (let [key, value] of iterableStyledObj) {
+          if (typeof value === 'string') {
+            domElem.style[key as number] = '';
           }
         }
       }
@@ -61,4 +63,9 @@ const activeStyle = (
   }
 };
 
-export { activeStyle, originalHeaderStyle, stickyHeaderStyle, stickyMenuStyle };
+export {
+  applyStyleElem,
+  originalHeaderStyle,
+  stickyHeaderStyle,
+  stickyMenuStyle,
+};
