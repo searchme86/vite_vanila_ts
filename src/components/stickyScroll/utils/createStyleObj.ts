@@ -17,8 +17,8 @@ const stickyHeaderStyle: cssStyleObjType = {
 
 const stickyMenuStyle: cssStyleObjType = {
   position: 'fixed',
-  top: 0,
-  transform: 'translate3d(0px, 60px, 0px)',
+  top: '0',
+  transform: 'translate3d(0px, 50px, 0px)',
   width: '100%',
 };
 
