@@ -2,18 +2,22 @@
 // 클래스명을 입력합니다
 //element가 없거나 offsetTop이 0이면 return 합니다
 //element는 클래스명을 입력합니다
-const checkOffsetTopOrNot = (element) => {
-  const foundDom = document.querySelector(element);
-  if (foundDom === null || foundDom.offsetTop === 0) {
-    return;
+const checkOffsetTopOrNot = (element: string) => {
+  const foundDom = document.querySelector(element) as HTMLElement | null;
+  if (foundDom) {
+    if (foundDom.offsetTop === 0) {
+      return;
+    }
+    return foundDom;
   }
-  return foundDom;
 };
 
-const calcElemOffsetTopValue = (element, value = 0) => {
+const calcElemOffsetTopValue = (element: string, value = 0) => {
   if (element) {
     const something = checkOffsetTopOrNot(element);
-    return something.offsetTop - value;
+    if (something) {
+      return something.offsetTop - value;
+    }
   }
 };
 

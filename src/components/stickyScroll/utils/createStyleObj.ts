@@ -1,17 +1,21 @@
 import {
   isObjIterable,
-  transformNormalObjToIterable,
+  transformNormalStyleObjToIterable,
 } from './createIterableObj.js';
 
-const originalHeaderStyle = {
+type styleObjType = {
+  [key in keyof CSSStyleDeclaration]?: string | number;
+};
+
+const originalHeaderStyle: styleObjType = {
   position: 'static',
 };
 
-const stickyHeaderStyle = {
+const stickyHeaderStyle: styleObjType = {
   position: 'fixed',
 };
 
-const stickyMenuStyle = {
+const stickyMenuStyle: styleObjType = {
   position: 'fixed',
   top: 0,
   transform: 'translate3d(0px, 60px, 0px)',
@@ -19,29 +23,39 @@ const stickyMenuStyle = {
 };
 
 // 일반 객체(스타일 객체)를 이터러블 객체로 변환
-const createStyleObj = (obj) => {
+const createStyleObj = (obj: styleObjType) => {
   if (!obj || typeof obj !== 'object') {
     return;
   }
-  let styleObj;
+
   const isIterable = isObjIterable(obj);
 
   if (!isIterable) {
-    styleObj = transformNormalObjToIterable(obj);
+    let styleObj = transformNormalStyleObjToIterable(obj);
     return styleObj;
   }
 };
 
-const activeStyle = (element, styleObj, trigger = true) => {
+const activeStyle = (
+  element: HTMLElement | null,
+  styleObj: styleObjType,
+  trigger = true
+) => {
   if (element && styleObj) {
     const iterableStyledObj = createStyleObj(styleObj);
-    if (trigger) {
+    if (trigger && iterableStyledObj) {
       for (const [key, value] of iterableStyledObj) {
-        element.style[key] = value;
+        if (typeof key === 'number' && typeof value === 'string') {
+          element.style[key] = value;
+        }
       }
-    } else {
+    } else if (iterableStyledObj) {
       for (const [key, value] of iterableStyledObj) {
-        element.style[key] = '';
+        if (iterableStyledObj) {
+          if (typeof key === 'number' && typeof value === 'string') {
+            element.style[key] = '';
+          }
+        }
       }
     }
   }
