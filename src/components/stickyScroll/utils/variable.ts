@@ -8,9 +8,10 @@ const queryElements = <T extends HTMLElement>(
   return document.querySelectorAll(selector);
 };
 
-const listMenu = queryElement<HTMLDivElement>('.list_menu');
+const boxMenu = queryElement<HTMLDivElement>('.box_menu');
 const listItems = queryElements<HTMLDivElement>('.list-item_menu .text_menu');
 const menuContents = queryElements<HTMLDivElement>('.menu_content');
 const header = queryElement<HTMLDivElement>('.header');
+const boxInner = queryElement<HTMLDivElement>('.box_inner_menu');
 
-export { listMenu, listItems, menuContents, header };
+export { boxMenu, listItems, menuContents, header, boxInner };
