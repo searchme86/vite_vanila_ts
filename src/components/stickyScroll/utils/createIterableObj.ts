@@ -1,32 +1,37 @@
 // 보통의 일반객체를 정의
-type OrdinaryObjectType = {
+type OrdinaryObjType = {
   [key: string | number]: unknown;
 } & object;
+
+type IterableObjType = OrdinaryObjType & Iterable<[string | number, unknown]>;
 
 // 객체가 이터레이블한 속성이 있는지 없는지를 체크
 const isObjIterable = (obj: unknown) => {
   try {
-    return obj != null && typeof (obj as any)[Symbol.iterator] === 'function';
+    return (
+      obj != null &&
+      typeof (obj as Iterable<unknown>)[Symbol.iterator] === 'function'
+    );
   } catch (e) {
     return false;
   }
 };
 
 // 객체의 이터레이블 하지 않는 일반객체를 순회 가능한 이터레이블 객체로 변환
-const transformNormalStyleObjToIterable = (
-  obj: OrdinaryObjectType
-): OrdinaryObjectType & Iterable<[string | number, unknown]> => ({
+const transformNormalObjToIterable = (
+  obj: OrdinaryObjType
+): IterableObjType => ({
   [Symbol.iterator]() {
     let startIndex = 0;
     const objKeyArray = Object.keys(obj) as (string | number)[];
     return {
       next() {
         if (startIndex < objKeyArray.length) {
-          const transformedObjKey = objKeyArray[startIndex];
-          const transformedObjValue = obj[transformedObjKey];
+          const extractedObjKey = objKeyArray[startIndex];
+          const extractedObjValue = obj[extractedObjKey];
           startIndex++;
           return {
-            value: [transformedObjKey, transformedObjValue] as [
+            value: [extractedObjKey, extractedObjValue] as [
               string | number,
               unknown
             ],
@@ -34,8 +39,8 @@ const transformNormalStyleObjToIterable = (
           };
         } else {
           return {
-            done: true,
             value: undefined,
+            done: true,
           };
         }
       },
@@ -61,7 +66,7 @@ const transformNormalStyleObjToIterable = (
 //         result = callback(key, value);
 //       }
 //     } else {
-//       iterableObj = transformNormalStyleObjToIterable(iterableObj) as Record<
+//       iterableObj = transformNormalObjToIterable(iterableObj) as Record<
 //         string,
 //         unknown
 //       > &
@@ -76,6 +81,6 @@ const transformNormalStyleObjToIterable = (
 
 export {
   isObjIterable,
-  transformNormalStyleObjToIterable,
+  transformNormalObjToIterable,
   // iterateIterableObj
 };
