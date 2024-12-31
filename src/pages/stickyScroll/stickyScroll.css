@@ -7,6 +7,7 @@
 }
 
 .header {
+  z-index: 2;
   top: 0;
   left: 0;
   display: flex;
@@ -21,8 +22,9 @@
 }
 
 .container {
-  margin-top: 150px;
+  position: relative;
   .section {
+    background: red;
     height: 300px;
     .box_menu {
       .list_menu {
