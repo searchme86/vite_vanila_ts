@@ -1,7 +1,4 @@
-//offsetTop을 구할 수 있는지 없는지를 체크하는 함수 입니다
-// 클래스명을 입력합니다
-//element가 없거나 offsetTop이 0이면 return 합니다
-//element는 클래스명을 입력합니다
+// 클래스명으로 검색한 엘리먼트가 offsetTop을 가지고 있는지를 체크하는 함수입니다.
 const checkOffsetTopOrNot = (element: string) => {
   const foundDom = document.querySelector(element) as HTMLElement | null;
   if (foundDom) {
@@ -14,9 +11,9 @@ const checkOffsetTopOrNot = (element: string) => {
 
 const calcElemOffsetTopValue = (element: string, value = 0) => {
   if (element) {
-    const something = checkOffsetTopOrNot(element);
-    if (something) {
-      return something.offsetTop - value;
+    const offsetAvailElem = checkOffsetTopOrNot(element);
+    if (offsetAvailElem) {
+      return offsetAvailElem.offsetTop - value;
     }
   }
 };
