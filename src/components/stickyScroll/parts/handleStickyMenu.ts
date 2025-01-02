@@ -6,46 +6,28 @@ import {
 } from '../utils/createStyleObj.js';
 import { boxInner, boxMenu, header } from '../utils/variable.js';
 
+import {
+  resetBoxInner,
+  calcStickyMenuHeight,
+} from '../utils/stickyMenu/calcElemStickyMenu.js';
+import { calcTriggerPoint } from '../utils/calcElemScroll.js';
+
+import { getScrollY, isPastTriggerPoint } from '../utils/calcElemScroll.js';
+
 const stickyMenu = () => {
-  const resetBoxInner = () => {
-    if (boxInner) {
-      boxInner.style.transform = 'translate3d(0px, 0px, 0px)';
-      boxInner.style.position = 'relative';
-    }
-  };
-
-  const calcThresholdTrigger = () => {
-    if (header) {
-      const boxMenuOffsetTop = getElemOffsetTopValue('.box_menu');
-      if (boxMenuOffsetTop) {
-        const headerOffsetHeight = header?.offsetHeight;
-        let thresholdDistance = boxMenuOffsetTop - headerOffsetHeight;
-        return thresholdDistance;
-      }
-    }
-  };
-
-  const calcStickyMenuHeight = () => {
-    if (boxInner) {
-      let boxInnerOffsetHeight = boxInner.offsetHeight;
-      return boxInnerOffsetHeight;
-    }
-  };
-
-  const scrollY = window.scrollY;
-  const triggerPoint = calcThresholdTrigger();
-
-  const initialCalcForStickyScrollHeight = calcStickyMenuHeight();
+  const scrollY = getScrollY();
+  const stickyActionStartPoint = calcTriggerPoint('.box_menu', '.header');
+  const initialStickyMenuHeight = calcStickyMenuHeight();
 
   if (scrollY >= 0) {
     applyStyleElem(header, stickyHeaderStyle);
   }
 
-  if (triggerPoint) {
-    if (scrollY >= triggerPoint) {
+  if (stickyActionStartPoint) {
+    if (isPastTriggerPoint(scrollY, stickyActionStartPoint)) {
       applyStyleElem(boxInner, stickyMenuStyle);
       if (boxMenu) {
-        boxMenu.style.height = `${initialCalcForStickyScrollHeight}px`;
+        boxMenu.style.height = `${initialStickyMenuHeight}px`;
       }
     } else {
       applyStyleElem(boxInner, stickyMenuStyle, false);
