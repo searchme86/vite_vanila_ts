@@ -1,3 +1,11 @@
+/**
+ * 초기화 함수 정의
+ * 트리거포인트 계산 함수
+ *
+ *
+ *
+ */
+
 import {
   boxMenu,
   listItems,
@@ -18,23 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const what = () => {
     if (boxInner) {
       let boxInnerOffsetHeight = boxInner.offsetHeight;
-      boxInner.style.transform = 'translate3d(0px, 0px, 0px)';
       return boxInnerOffsetHeight;
     }
   };
 
-  const calcTresholdTrigger = () => {
+  const calcThresholdTrigger = () => {
     if (header) {
       const boxMenuOffsetTop = calcElemOffsetTopValue('.box_menu');
       if (boxMenuOffsetTop) {
         const headerOffsetHeight = header?.offsetHeight;
-        let tresholdDistance = boxMenuOffsetTop - headerOffsetHeight;
-        return tresholdDistance;
+        let thresholdDistance = boxMenuOffsetTop - headerOffsetHeight;
+        return thresholdDistance;
       }
     }
   };
 
-  const triggerPoint = calcTresholdTrigger();
+  const triggerPoint = calcThresholdTrigger();
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
