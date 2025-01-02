@@ -1,4 +1,3 @@
-import { getElemOffsetTopValue } from '../utils/calcElemOffsetTop.js';
 import {
   applyStyleElem,
   stickyHeaderStyle,
