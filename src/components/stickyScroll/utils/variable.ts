@@ -14,4 +14,12 @@ const menuContents = queryElements<HTMLDivElement>('.menu_content');
 const header = queryElement<HTMLDivElement>('.header');
 const boxInner = queryElement<HTMLDivElement>('.box_inner_menu');
 
-export { boxMenu, listItems, menuContents, header, boxInner };
+export {
+  queryElement,
+  queryElements,
+  boxMenu,
+  listItems,
+  menuContents,
+  header,
+  boxInner,
+};
