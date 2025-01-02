@@ -8,7 +8,7 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
     const domInfo = {
       tagName: searchedDom?.tagName.toLowerCase(),
       className: searchedDom?.className,
-      parent: domOffsetParent?.className,
+      parentClassName: domOffsetParent?.className,
     };
 
     if (domOffsetParent) {
@@ -23,13 +23,13 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
         return {
           type: 'false',
           offsetValue: 0,
-          message: `offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent의 css position 속성을 체크해보세요`,
+          message: `[에러] : offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent의 css position 속성을 체크해보세요`,
         };
       }
       return {
         type: 'true',
         offsetValue: searchedDom,
-        message: `offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent,클래스 ${domInfo['parent']}는 계산값으로 사용 가능합니다`,
+        message: `[정상] : offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent는 클래스 .${domInfo['parentClassName']}로, 계산값으로 사용 가능합니다`,
       };
     }
   }
@@ -38,9 +38,10 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
 // 엘리먼트의 클래스명을 입력하여 해당 돔의 offsetTop을 구하는 함수
 
 const getElemOffsetTopValue = (element: singleClassType) => {
-  const something = checkIfElemHasOffsetTopOrNot(element);
-  if (something) {
-    const { type, offsetValue, message } = something;
+  const domWithOffsetParent = checkIfElemHasOffsetTopOrNot(element);
+
+  if (domWithOffsetParent) {
+    const { type, offsetValue, message } = domWithOffsetParent;
 
     if (type === 'true' && offsetValue instanceof HTMLElement) {
       console.warn(message);
