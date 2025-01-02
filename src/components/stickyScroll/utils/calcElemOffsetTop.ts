@@ -5,6 +5,12 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
   if (searchedDom) {
     const domOffsetParent = searchedDom.offsetParent;
 
+    const domInfo = {
+      tagName: searchedDom?.tagName.toLowerCase(),
+      className: searchedDom?.className,
+      parent: domOffsetParent?.className,
+    };
+
     if (domOffsetParent) {
       const domPositionStyle =
         window.getComputedStyle(domOffsetParent).position;
@@ -17,13 +23,13 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
         return {
           type: 'false',
           offsetValue: 0,
-          message: '해당 돔의 offsetParent의 css position을 체크해보세요',
+          message: `offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent의 css position 속성을 체크해보세요`,
         };
       }
       return {
         type: 'true',
         offsetValue: searchedDom,
-        message: '해당 돔의 offsetParent는 사용 가능합니다',
+        message: `offsetTop 계산 : 클래스 ${domInfo['className']}, ${domInfo['tagName']} 엘리먼트의 offsetParent,클래스 ${domInfo['parent']}는 계산값으로 사용 가능합니다`,
       };
     }
   }
