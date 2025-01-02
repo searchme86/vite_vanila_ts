@@ -36,6 +36,4 @@ const getElemOffsetTopValue = (element: string) => {
   }
 };
 
-// 특정 어디 지점에서 offsetTop을 구할 수 있는지 없는지를 체크하는 함수 입니다
-
 export { getElemOffsetTopValue };
