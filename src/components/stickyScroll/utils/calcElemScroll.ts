@@ -1,6 +1,5 @@
 import { getElemOffsetTopValue } from './calcElemOffsetTop.js';
 import { queryElement } from './variable.js';
-type classNameType = `.${string}`;
 
 const getScrollY = () => {
   return window.scrollY;
@@ -9,8 +8,8 @@ const getScrollY = () => {
 // targetElem: '.box_menu'
 // associatedElem: '.header'
 const calcTriggerPoint = (
-  targetElem: classNameType,
-  associatedElem: classNameType
+  targetElem: singleClassType,
+  associatedElem: singleClassType
 ) => {
   const queriedTargetElem = queryElement(targetElem);
   const queriedAssociatedElem = queryElement(associatedElem);

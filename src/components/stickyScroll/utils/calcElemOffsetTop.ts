@@ -1,5 +1,5 @@
 // 클래스명으로 검색한 엘리먼트로 offsetTop을 구할 수 있는지 없는지를 체크하는 함수
-const checkIfElemHasOffsetTopOrNot = (element: string) => {
+const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
   const searchedDom = document.querySelector(element) as HTMLElement | null;
 
   if (searchedDom) {
@@ -31,7 +31,7 @@ const checkIfElemHasOffsetTopOrNot = (element: string) => {
 
 // 엘리먼트의 클래스명을 입력하여 해당 돔의 offsetTop을 구하는 함수
 
-const getElemOffsetTopValue = (element: string) => {
+const getElemOffsetTopValue = (element: singleClassType) => {
   const something = checkIfElemHasOffsetTopOrNot(element);
   if (something) {
     const { type, offsetValue, message } = something;
