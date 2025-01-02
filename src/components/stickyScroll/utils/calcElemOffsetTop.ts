@@ -23,13 +23,13 @@ const checkIfElemHasOffsetTopOrNot = (element: string) => {
 
 // 엘리먼트의 클래스명을 입력하여 해당 돔의 offsetTop을 구하는 함수
 
-const calcElemOffsetTopValue = (element: string, value = 0) => {
+const getElemOffsetTopValue = (element: string) => {
   const something = checkIfElemHasOffsetTopOrNot(element);
   if (something) {
     const { type, offsetValue } = something;
 
     if (type === 'true' && offsetValue instanceof HTMLElement) {
-      return offsetValue.offsetTop - value;
+      return offsetValue.offsetTop;
     } else {
       return 0;
     }
@@ -38,4 +38,4 @@ const calcElemOffsetTopValue = (element: string, value = 0) => {
 
 // 특정 어디 지점에서 offsetTop을 구할 수 있는지 없는지를 체크하는 함수 입니다
 
-export { calcElemOffsetTopValue };
+export { getElemOffsetTopValue };
