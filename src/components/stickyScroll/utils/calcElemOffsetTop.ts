@@ -14,9 +14,17 @@ const checkIfElemHasOffsetTopOrNot = (element: string) => {
         searchedDom.offsetTop === 0 ||
         domPositionStyle === 'static'
       ) {
-        return { type: 'false', offsetValue: 0 };
+        return {
+          type: 'false',
+          offsetValue: 0,
+          message: '해당 돔의 offsetParent의 css position을 체크해보세요',
+        };
       }
-      return { type: 'true', offsetValue: searchedDom };
+      return {
+        type: 'true',
+        offsetValue: searchedDom,
+        message: '해당 돔의 offsetParent는 사용 가능합니다',
+      };
     }
   }
 };
@@ -26,11 +34,13 @@ const checkIfElemHasOffsetTopOrNot = (element: string) => {
 const getElemOffsetTopValue = (element: string) => {
   const something = checkIfElemHasOffsetTopOrNot(element);
   if (something) {
-    const { type, offsetValue } = something;
+    const { type, offsetValue, message } = something;
 
     if (type === 'true' && offsetValue instanceof HTMLElement) {
+      console.warn(message);
       return offsetValue.offsetTop;
     } else {
+      console.warn(message);
       return 0;
     }
   }
