@@ -19,9 +19,7 @@ const stickyMenu = () => {
   const stickyActionStartPoint = calcTriggerPoint('.box_menu', '.header');
   const initialStickyMenuHeight = calcStickyMenuHeight();
 
-  if (scrollY >= 0) {
-    applyStyleElem(header, stickyHeaderStyle);
-  }
+  scrollY >= 0 && applyStyleElem(header, stickyHeaderStyle);
 
   if (stickyActionStartPoint) {
     if (isPastTriggerPoint(scrollY, stickyActionStartPoint)) {
