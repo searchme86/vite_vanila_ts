@@ -7,7 +7,6 @@ import {
   boxInner,
   boxMenu,
   header,
-  boxContent,
   sideBar,
   sideInner,
 } from '../utils/variable.js';
