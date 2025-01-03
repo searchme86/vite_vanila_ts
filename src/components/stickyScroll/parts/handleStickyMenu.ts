@@ -65,9 +65,9 @@ const stickyMenu = () => {
         }
       }
     } else {
-      if (sideBar) {
-        sideBar.style.position = 'relative';
-        sideBar.style.top = '0';
+      if (sideInner) {
+        sideInner.style.position = 'relative';
+        sideInner.style.top = '0px';
       }
     }
   }

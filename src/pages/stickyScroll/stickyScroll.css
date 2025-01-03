@@ -16,43 +16,142 @@
   width: 100%;
   height: 60px;
   background: black;
+  transition: position 1.5s;
   .header_text {
     color: #fff;
   }
 }
 
-.container {
+.page {
   position: relative;
-  .section {
-    background: red;
-    height: 300px;
-    .box_menu {
-      .list_menu {
-        width: 100%;
-        list-style-type: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .container {
+    margin: 40px auto;
+    max-width: 900px;
+    /* 여기에 relative를 주어서 offsetTop 거리 문제 때문에 너무 빨리 움직임 */
+    .some_section {
+      width: 100%;
+      .corp_info {
         display: flex;
-        .list-item_menu {
-          display: flex;
-          align-items: center;
-          width: 20%;
-          height: 50px;
-          background: blanchedalmond;
-          .text_menu {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+        .corp_image {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          .image_wrap {
             width: 100%;
+            height: 100%;
+            img {
+              display: block;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+        .corp_name {
+          font-size: 30px;
+          line-height: 1;
+        }
+      }
+      .corp_title {
+        margin-bottom: 30px;
+      }
+    }
+    .section {
+      .content {
+        display: flex;
+        .scrollBody {
+          width: 587px;
+          padding-right: 40px;
+          .box_menu {
+            .box_inner_menu {
+              white-space: nowrap;
+              overflow-x: scroll;
+              transition: top 4.5s;
+              .list_menu {
+                list-style-type: none;
+                display: flex;
+                width: 700px;
+                border-top: 1px solid red;
+                background: #fff;
+                .list-item_menu {
+                  display: flex;
+                  flex-grow: 1;
+                  align-items: center;
+                  padding: 20px 5px 9px 5px;
+                  .text_menu {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
+          .box_content {
+            width: 100%;
+            .menu_content {
+              height: 500px;
+              /* background: pink; */
+              .text_title {
+                display: block;
+              }
+            }
+          }
+        }
+        .sidebar {
+          max-width: 265px;
+          width: 265px;
+          border: 4px dotted;
+          .asideInner {
+            background: beige;
           }
         }
       }
     }
-    .box_content {
-      .menu_content {
-        height: 500px;
-        background: pink;
-        .text_title {
-          display: block;
-          margin: 30px 0 20px 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .page {
+    width: 430px;
+    .header {
+      width: 100%;
+    }
+    .container {
+      width: 100%;
+      .section {
+        .content {
+          width: 100%;
+          .scrollBody {
+            width: 100%;
+            .box_menu {
+              .list_menu {
+                white-space: nowrap;
+                overflow-x: auto;
+                .list-item_menu {
+                  width: 200px;
+                }
+              }
+            }
+            .box_content {
+              width: 100%;
+            }
+          }
+          .sidebar {
+            background: yellow;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            margin-left: 0;
+          }
         }
       }
     }
