@@ -60,7 +60,6 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
     }
   } catch (e) {
     if (e instanceof Error) {
-      // console.log('error');
       console.error(e.message);
       return {
         type: 'false',
@@ -76,8 +75,6 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
 
 const getElemOffsetTopValue = (element: singleClassType) => {
   const domWithOffsetParent = checkIfElemHasOffsetTopOrNot(element);
-
-  // console.log('2.domWithOffsetParent', domWithOffsetParent);
 
   if (domWithOffsetParent) {
     const { type, offsetValue, message } = domWithOffsetParent;
