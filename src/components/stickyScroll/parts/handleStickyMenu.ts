@@ -57,8 +57,6 @@ const stickyMenu = () => {
       if (sideBar) {
         const initialAsideInnerWidth = sideBar?.offsetWidth;
         const initialAsideInnerHeight = sideBar?.offsetHeight;
-        // sideBar.style.position = 'fixed';
-        // sideBar.style.top = '60px';
 
         if (sideInner) {
           sideInner.style.position = 'fixed';

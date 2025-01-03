@@ -11,15 +11,14 @@ const originalHeaderStyle: cssStyleObjType = {
   position: 'static',
 };
 
-const stickyHeaderStyle: cssStyleObjType = {
+const stickyElemStyle: cssStyleObjType = {
   position: 'fixed',
 };
 
 const stickyMenuStyle: cssStyleObjType = {
   position: 'fixed',
   top: '0',
-  transform: 'translate3d(0px, 50px, 0px)',
-  width: '100%',
+  transform: 'translate3d(0px, 60px, 0px)',
 };
 
 // 일반 객체(스타일 객체)를 이터러블 객체로 변환
@@ -66,6 +65,6 @@ const applyStyleElem = (
 export {
   applyStyleElem,
   originalHeaderStyle,
-  stickyHeaderStyle,
+  stickyElemStyle,
   stickyMenuStyle,
 };
