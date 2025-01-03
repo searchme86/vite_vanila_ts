@@ -7,6 +7,10 @@ const getScrollY = () => {
 
 // targetElem: '.box_menu'
 // associatedElem: '.header'
+
+// targetElem: '.sidebar'
+// associatedElem: '.header'
+
 const calcTriggerPoint = (
   targetElem: singleClassType,
   associatedElem: singleClassType
@@ -16,6 +20,7 @@ const calcTriggerPoint = (
 
   if (queriedTargetElem && queriedAssociatedElem) {
     const targetElemOffsetTop = getElemOffsetTopValue(targetElem);
+
     if (targetElemOffsetTop) {
       const associatedElemOffsetHeight = queriedAssociatedElem.offsetHeight;
       let triggerPoint = targetElemOffsetTop - associatedElemOffsetHeight;

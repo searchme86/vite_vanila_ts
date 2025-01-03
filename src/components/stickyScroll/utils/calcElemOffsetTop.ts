@@ -3,7 +3,9 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
   const searchedDom = document.querySelector(element) as HTMLElement | null;
 
   if (searchedDom) {
-    const domOffsetParent = searchedDom.offsetParent;
+    const domOffsetParent = searchedDom?.offsetParent;
+    console.log('0. searchedDom', searchedDom);
+    console.log('1.domOffsetParent', domOffsetParent);
 
     const domInfo = {
       tagName: searchedDom?.tagName.toLowerCase(),
@@ -39,6 +41,8 @@ const checkIfElemHasOffsetTopOrNot = (element: singleClassType) => {
 
 const getElemOffsetTopValue = (element: singleClassType) => {
   const domWithOffsetParent = checkIfElemHasOffsetTopOrNot(element);
+
+  console.log('2.domWithOffsetParent', domWithOffsetParent);
 
   if (domWithOffsetParent) {
     const { type, offsetValue, message } = domWithOffsetParent;

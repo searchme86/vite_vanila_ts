@@ -28,6 +28,9 @@ const listItems = queryElementsWithDoubleClass<HTMLDivElement>(
 const menuContents = queryElements<HTMLDivElement>('.menu_content');
 const header = queryElement<HTMLDivElement>('.header');
 const boxInner = queryElement<HTMLDivElement>('.box_inner_menu');
+const boxContent = queryElement<HTMLDivElement>('.box_content');
+const sideBar = queryElement<HTMLDivElement>('.sidebar');
+const sideInner = queryElement<HTMLDivElement>('.asideInner');
 
 export {
   queryElement,
@@ -39,4 +42,7 @@ export {
   menuContents,
   header,
   boxInner,
+  boxContent,
+  sideBar,
+  sideInner,
 };
