@@ -21,6 +21,11 @@ const stickyMenuStyle: cssStyleObjType = {
   transform: 'translate3d(0px, 60px, 0px)',
 };
 
+const stickyAsideMenuStyle: cssStyleObjType = {
+  position: 'fixed',
+  top: '60px',
+};
+
 // 일반 객체(스타일 객체)를 이터러블 객체로 변환
 const createIterableObj = (normalObj: cssStyleObjType) => {
   if (!normalObj || typeof normalObj !== 'object') {
@@ -67,4 +72,5 @@ export {
   originalHeaderStyle,
   stickyElemStyle,
   stickyMenuStyle,
+  stickyAsideMenuStyle,
 };

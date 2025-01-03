@@ -1,5 +1,6 @@
 import {
   applyStyleElem,
+  stickyAsideMenuStyle,
   stickyElemStyle,
   stickyMenuStyle,
 } from '../utils/createStyleObj.js';
@@ -10,33 +11,42 @@ import {
   sideBar,
   sideInner,
 } from '../utils/variable.js';
-
 import {
   resetBoxInner,
-  calcStickyMenuHeight,
-} from '../utils/stickyMenu/calcElemStickyMenu.js';
+  calcInitialMenuHeight,
+  calcHeaderHeight,
+  getViewPortWidth,
+  resetAsideBanner,
+} from '../utils/calcElemValue.js';
 import { calcTriggerPoint } from '../utils/calcElemScroll.js';
-
 import { getScrollY, isPastTriggerPoint } from '../utils/calcElemScroll.js';
 
 const stickyMenu = () => {
-  const scrollY = getScrollY();
-  const stickyMenuStartPoint = calcTriggerPoint('.box_menu', '.header');
-  const stickyAsideMenuStartPoint = calcTriggerPoint('.sidebar', '.header');
-  const initialStickyMenuHeight = calcStickyMenuHeight();
+  const browserScrollYValue = getScrollY();
+  const valueWhenToMenuBeginSticky = calcTriggerPoint('.box_menu', '.header');
+  const valueWhenToAsideMenuBeginSticky = calcTriggerPoint(
+    '.sidebar',
+    '.header'
+  );
+  const initialStickyMenuHeight = calcInitialMenuHeight();
+  const stickyHeaderHeight = calcHeaderHeight();
+  const browserWidth = getViewPortWidth();
 
-  scrollY >= 60
-    ? applyStyleElem(header, stickyElemStyle)
-    : applyStyleElem(header, stickyElemStyle, false);
+  // 헤더 인터렉션
+  if (stickyHeaderHeight) {
+    browserScrollYValue >= stickyHeaderHeight
+      ? applyStyleElem(header, stickyElemStyle)
+      : applyStyleElem(header, stickyElemStyle, false);
+  }
 
-  if (stickyMenuStartPoint) {
-    if (isPastTriggerPoint(scrollY, stickyMenuStartPoint)) {
+  // menu sticky
+  if (valueWhenToMenuBeginSticky) {
+    if (isPastTriggerPoint(browserScrollYValue, valueWhenToMenuBeginSticky)) {
       if (boxInner) {
         const initialInnerBoxWidth = boxInner?.offsetWidth;
         applyStyleElem(boxInner, stickyMenuStyle);
         boxInner.style.width = `${initialInnerBoxWidth}px`;
       }
-
       if (boxMenu) {
         boxMenu.style.height = `${initialStickyMenuHeight}px`;
       }
@@ -46,24 +56,24 @@ const stickyMenu = () => {
     }
   }
 
-  if (stickyAsideMenuStartPoint) {
-    if (isPastTriggerPoint(scrollY, stickyAsideMenuStartPoint)) {
+  // aside menu sticky
+  if (valueWhenToAsideMenuBeginSticky) {
+    if (
+      isPastTriggerPoint(browserScrollYValue, valueWhenToAsideMenuBeginSticky)
+    ) {
       if (sideBar) {
         const initialAsideInnerWidth = sideBar?.offsetWidth;
         const initialAsideInnerHeight = sideBar?.offsetHeight;
 
         if (sideInner) {
-          sideInner.style.position = 'fixed';
-          sideInner.style.top = '60px';
+          applyStyleElem(sideInner, stickyAsideMenuStyle);
           sideInner.style.width = `${initialAsideInnerWidth}px`;
           sideInner.style.height = `${initialAsideInnerHeight}px`;
         }
       }
     } else {
-      const windowSize = window.innerWidth;
-      if (sideInner && windowSize >= 360) {
-        sideInner.style.position = 'relative';
-        sideInner.style.top = '0px';
+      if (sideInner && browserWidth >= 360) {
+        resetAsideBanner();
       }
     }
   }
