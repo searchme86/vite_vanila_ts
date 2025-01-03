@@ -1,3 +1,5 @@
+import { links, sections, boxInner } from '../utils/variable.js';
+
 const stickyMenuScrollSpy = () => {
   // Types
   type NullableHTMLElement = HTMLDivElement | null;
@@ -5,12 +7,6 @@ const stickyMenuScrollSpy = () => {
 
   // Global Variables
   const menu = document.getElementById('menu') as NullableHTMLElement;
-  const links: NullableNodeList = menu
-    ? menu.querySelectorAll('.text_menu')
-    : null;
-  const sections = document.querySelectorAll(
-    '.section_content'
-  ) as NodeListOf<HTMLDivElement>;
 
   let isMouseDown = false;
   let startX: number | undefined;
@@ -30,14 +26,18 @@ const stickyMenuScrollSpy = () => {
   // Utility: Update Active Section
   const updateActiveSection = () => {
     let currentSectionId = '';
-    sections.forEach((section) => {
-      // console.log('section', section);
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 0 && rect.bottom > 0) {
-        currentSectionId = section.classList[2]; // Use the second class for ID
-        // console.log('currentSectionId', currentSectionId);
-      }
-    });
+
+    if (!sections || sections.length === 0) return;
+    if (sections) {
+      sections.forEach((section) => {
+        // console.log('section', section);
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 0 && rect.bottom > 0) {
+          currentSectionId = section.classList[2]; // Use the second class for ID
+          // console.log('currentSectionId', currentSectionId);
+        }
+      });
+    }
 
     links?.forEach((link) => {
       const targetId = link.getAttribute('data-target');
@@ -79,8 +79,10 @@ const stickyMenuScrollSpy = () => {
         const targetId = link.getAttribute('data-target');
         if (targetId) {
           scrollToSection(targetId);
-          links.forEach((l) => l.classList.remove('active'));
-          link.classList.add('active');
+          if (links) {
+            links.forEach((l) => l.classList.remove('active'));
+            link.classList.add('active');
+          }
         }
       });
     });
