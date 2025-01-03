@@ -69,14 +69,15 @@
           padding-right: 40px;
           .box_menu {
             .box_inner_menu {
+              border-top: 1px solid red;
               white-space: nowrap;
               overflow-x: scroll;
               transition: top 4.5s;
+              scrollbar-width: none;
               .list_menu {
                 list-style-type: none;
                 display: flex;
                 width: 700px;
-                border-top: 1px solid red;
                 background: #fff;
                 .list-item_menu {
                   display: flex;
@@ -91,13 +92,15 @@
                   }
                 }
               }
+              &::-webkit-scrollbar {
+                display: none;
+              }
             }
           }
           .box_content {
             width: 100%;
             .menu_content {
               height: 500px;
-              /* background: pink; */
               .text_title {
                 display: block;
               }
@@ -124,12 +127,18 @@
       width: 100%;
     }
     .container {
-      width: 100%;
+      /* width: 100%; */
+      /* margin: 40px auto;
+    max-width: 900px; */
+      margin: 0;
+      max-width: 100%;
       .section {
         .content {
-          width: 100%;
+          width: 100vw;
           .scrollBody {
-            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            padding-right: 0;
             .box_menu {
               .list_menu {
                 white-space: nowrap;
@@ -140,7 +149,7 @@
               }
             }
             .box_content {
-              width: 100%;
+              width: 100vw;
             }
           }
           .sidebar {
@@ -151,6 +160,7 @@
             width: 100%;
             height: 100px;
             margin-left: 0;
+            max-width: 100%;
           }
         }
       }

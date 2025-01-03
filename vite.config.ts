@@ -7,6 +7,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         menu: resolve(__dirname, './src/pages/stickyScroll/scrollSticky.html'),
+        auto: resolve(
+          __dirname,
+          './src/pages/autoScrollSpy/autoScrollSpy.html'
+        ),
       },
     },
   },

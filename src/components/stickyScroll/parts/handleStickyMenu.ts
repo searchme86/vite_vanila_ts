@@ -29,11 +29,6 @@ const stickyMenu = () => {
     ? applyStyleElem(header, stickyElemStyle)
     : applyStyleElem(header, stickyElemStyle, false);
 
-  console.log('scrollY', scrollY);
-  console.log('stickyMenuStartPoint', stickyMenuStartPoint);
-  console.log('stickyAsideMenuStartPoint', stickyAsideMenuStartPoint);
-  console.log('initialStickyMenuHeight', initialStickyMenuHeight);
-
   if (stickyMenuStartPoint) {
     if (isPastTriggerPoint(scrollY, stickyMenuStartPoint)) {
       if (boxInner) {
@@ -65,7 +60,8 @@ const stickyMenu = () => {
         }
       }
     } else {
-      if (sideInner) {
+      const windowSize = window.innerWidth;
+      if (sideInner && windowSize >= 360) {
         sideInner.style.position = 'relative';
         sideInner.style.top = '0px';
       }
